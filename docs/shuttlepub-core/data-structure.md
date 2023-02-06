@@ -4,18 +4,19 @@
 classDiagram
 	class Account {
 		id: long
-		account_name: string
+		account_name: String
 		profile: Profile
-		follows: Follow
+		follow: Vec[Follow]
 	}
 	class Profile {
-		display_name: string
-		summary: string
+		display_name: String
+		summary: String
 		icon: String
 		banner: String
 	}
 	class Follow {
-		
+		target: [AccountId | String]
 	}
 	Account --|> Profile
+	Account --|> Follow
 ```
