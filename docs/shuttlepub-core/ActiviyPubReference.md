@@ -228,7 +228,7 @@
 ```
 
 こちらも一般的なユーザー情報かと思いきやtypeがServiceになってる大変お行儀の悪い(ように見える)json。  
-なんでこれでみんな認識できてるんですか？
+~~なんでこれでみんな認識できてるんですか？~~ どうやらtypeがServiceまたはApplicationの場合はBOTフラグ扱いになる[らしい](https://docs.joinmastodon.org/spec/activitypub/#:~:text=if%20type%20is%20application%20or%20service)
 
 ## 投稿記事
 
