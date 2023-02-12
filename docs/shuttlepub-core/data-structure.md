@@ -13,9 +13,17 @@ classDiagram
 		summary: String
 		icon: String
 		banner: String
+		meta_data: Vec[MetaData]
 	}
 	class Follow {
-		target: [AccountId | String]
+		id: ULID
+		target: [AccountId[long] | String]
+	}
+	class MetaData {
+		id: [AccountId[long]]
+		index: long
+		label: String
+		content: String
 	}
 	Account --|> Profile
 	Account --|> Follow
