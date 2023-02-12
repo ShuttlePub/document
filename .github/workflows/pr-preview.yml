@@ -8,6 +8,7 @@ jobs:
   build:
     uses: ./.github/workflows/build.yml
   deploy-preview:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
