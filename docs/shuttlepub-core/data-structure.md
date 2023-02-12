@@ -20,11 +20,12 @@ classDiagram
 		target: [AccountId[long] | String]
 	}
 	class MetaData {
-		id: [AccountId[long]]
+		id: AccountId[long]
 		index: long
 		label: String
 		content: String
 	}
 	Account --|> Profile
 	Account --|> Follow
+	Profile --|> MetaData
 ```
