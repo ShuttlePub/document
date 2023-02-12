@@ -37,3 +37,9 @@ jobs:
 
       - name: build
         run: pnpm run build
+      
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: build

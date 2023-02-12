@@ -20,11 +20,20 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
+  build:
+    uses: ./.github/workflows/build.yml
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: build
-        uses: ShuttlePub/document/.github/workflows/build.yml@main
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: download-builds
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
