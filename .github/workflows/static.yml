@@ -11,9 +11,7 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 # Allow one concurrent deployment
 concurrency:
@@ -58,13 +56,9 @@ jobs:
       - name: build
         run: pnpm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload entire repository
-          path: './build'
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
+          force: false
+          clean-exclude: pr-preview/
