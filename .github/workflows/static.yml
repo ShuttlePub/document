@@ -23,11 +23,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: build
-        uses: ./.github/workflows/build.yml
+        uses: ShuttlePub/document/.github/workflows/build.yml@main
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
