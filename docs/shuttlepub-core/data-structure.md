@@ -6,6 +6,7 @@ classDiagram
 		id: long
 		account_name: String
 		is_bot: bool
+		confidential: Confidential
 		profile: Profile
 		follow: Vec[Follow]
 	}
@@ -26,6 +27,12 @@ classDiagram
 		label: String
 		content: String
 	}
+	class Confidential {
+		id: AccountId[long]
+		mail: String
+		password: String
+	}
+	Account --|> Confidential
 	Account --|> Profile
 	Account --|> Follow
 	Profile --|> MetaData
