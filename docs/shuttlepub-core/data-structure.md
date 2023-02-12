@@ -21,7 +21,6 @@ classDiagram
 		target: [AccountId[long] | String]
 	}
 	class MetaData {
-		index: long
 		label: String
 		content: String
 	}
