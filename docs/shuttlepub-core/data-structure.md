@@ -5,6 +5,7 @@ classDiagram
 	class Account {
 		id: long
 		account_name: String
+		is_bot: bool
 		profile: Profile
 		follow: Vec[Follow]
 	}
