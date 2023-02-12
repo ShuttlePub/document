@@ -22,13 +22,11 @@ classDiagram
 		target: [AccountId[long] | String]
 	}
 	class MetaData {
-		id: AccountId[long]
 		index: long
 		label: String
 		content: String
 	}
 	class Confidential {
-		id: AccountId[long]
 		mail: String
 		password: String
 	}
