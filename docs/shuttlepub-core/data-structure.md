@@ -14,6 +14,7 @@ classDiagram
 		summary: String
 		icon: String
 		banner: String
+		created_at: DateTime
 		meta_data: Vec[MetaData]
 	}
 	class Follow {
