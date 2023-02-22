@@ -1,0 +1,81 @@
+openapi: 3.0.3
+
+info:
+  title: "ShuttlePub API v1"
+  description: |-
+    WIP~
+  contact:
+    email: "support@shuttle.pub"
+  version: "1.0.0"
+
+servers:
+  - url: "htttps://api.shuttle.pub/v1"
+    description: "WIP"
+
+tags:
+  - name: "users"
+    description: "ユーザーの操作"
+
+paths:
+  "/users/profile":
+    put:
+      tags: ["users"]
+      summary: "Profileの更新"
+      description: "既存のProfileを更新します"
+      operationId: "addProfile"
+      requiestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Profile"
+        required: true
+      responses:
+        "200":
+          description: "更新に成功した場合"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+        "400":
+          description: "無効なIDの指定"
+        "404":
+          description: "対象のアカウントが存在しない場合"
+        "405":
+          description: "検証に失敗した場合"
+      security:
+        - account_auth:
+            - write:users
+            - read:users
+
+
+components:
+  schemas:
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 0
+        account:
+          type: integer
+          format: int64
+          example: 6446348271139192
+        display_name:
+          type: string
+          example: "shuttlepub"
+        summary:
+          type: string
+          example: "A Blazing Fast Fediverse MicroBlog"
+        icon:
+          type: string
+          example: "https://cdn.shuttle.pub/icon.png"
+        banner:
+          type: string
+          example: "https://cdn.shuttle.pub/banner.png"
+        created_at:
+          type: string
+          format: date
+          example: "2023-02-06"
+

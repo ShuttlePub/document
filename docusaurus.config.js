@@ -49,6 +49,8 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          docLayoutComponent: "@theme/DocPage",
+          //docItemComponent: "@theme/ApiItem",
         },
         blog: {
           showReadingTime: true,
@@ -82,6 +84,7 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
+          { to: '/category/swagger-api', label: 'API', position: 'left' },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/ShuttlePub/document',
@@ -147,9 +150,9 @@ const config = {
         id: "apiDocs",
         docsPluginId: "classic",
         config: {
-          petstore: { // Note: petstore key is treated as the <id> and can be used to specify an API doc instance when using CLI commands
-            specPath: "open_api/v1.yaml", // Path to designated spec file
-            outputDir: "api/v1", // Output directory for generated .mdx docs
+          v1: { // Note: petstore key is treated as the <id> and can be used to specify an API doc instance when using CLI commands
+            specPath: "open_api/v1.yml", // Path to designated spec file
+            outputDir: "docs/swagger-api/v1", // Output directory for generated .mdx docs
             sidebarOptions: {
               groupPathsBy: "tag",
             },
