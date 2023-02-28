@@ -50,7 +50,7 @@ const config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
           docLayoutComponent: "@theme/DocPage",
-          //docItemComponent: "@theme/ApiItem",
+          // docItemComponent: "@theme/ApiItem",
         },
         blog: {
           showReadingTime: true,
@@ -155,7 +155,9 @@ const config = {
             outputDir: "docs/swagger-api/v1", // Output directory for generated .mdx docs
             sidebarOptions: {
               groupPathsBy: "tag",
+              categoryLinkSource: "tag",
             },
+            template: "api.mustache",
           },
         }
       },
