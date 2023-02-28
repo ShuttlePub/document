@@ -50,7 +50,7 @@ const config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
           docLayoutComponent: "@theme/DocPage",
-          // docItemComponent: "@theme/ApiItem",
+          docItemComponent: "@theme/ApiItem",
         },
         blog: {
           showReadingTime: true,
@@ -84,7 +84,7 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          { to: '/category/swagger-api', label: 'API', position: 'left' },
+          { to: '/docs/api', label: 'API', position: 'left' },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/ShuttlePub/document',
@@ -148,11 +148,11 @@ const config = {
       'docusaurus-plugin-openapi-docs',
       {
         id: "apiDocs",
-        docsPluginId: "classic",
+        docsPluginId: "api",
         config: {
           v1: { // Note: petstore key is treated as the <id> and can be used to specify an API doc instance when using CLI commands
             specPath: "open_api/v1.yml", // Path to designated spec file
-            outputDir: "docs/swagger-api/v1", // Output directory for generated .mdx docs
+            outputDir: "docs/api/v1", // Output directory for generated .mdx docs
             sidebarOptions: {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
