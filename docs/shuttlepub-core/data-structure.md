@@ -1,5 +1,7 @@
 # DataStructure
 
+## Account
+
 ```mermaid
 classDiagram
 	class Account {
@@ -28,8 +30,12 @@ classDiagram
 	Account --|> Profile
 	Account --|> Follow
 	Profile --|> MetaData
-	
-	
+```
+
+## Note
+
+```mermaid
+classDiagram
 class Note {
 	UUID id
 	Long author
@@ -98,6 +104,7 @@ Reply--|>Note
 TurboQuote--|>Note
 Turbo--|>Note
 Note--|>Media
-
-Note--|>Account
 ```
+
+
+
