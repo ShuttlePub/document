@@ -20,7 +20,7 @@ classDiagram
 	}
 	class Follow {
 		ULID id
-		~AccountId~long~ | String~ target
+		~AccountId~long~|String~ target
 	}
 	class MetaData {
 		Long id
@@ -50,20 +50,20 @@ class Note {
 class Mention {
 	UUID id
 	UUID origin
-	~Long | URI~ target
+	~Long|URI~ target
 }
 class NoteReaction {
 	UUID id
 	UUID noteId
 	Long accountId
 	Date created_at
-	~UUID | String~ assetId
+	~UUID|String~ assetId
 }
 class Asset {
 	UUID id
 	String alias
 	URI cdn
-	~URI | String~ license
+	~URI|String~ license
 	Date created_at
 }
 class HashTag {
@@ -74,19 +74,19 @@ class HashTag {
 class Reply {
 	UUID id
 	Date created_at
-	~UUID | URI~ origin
-	~UUID | URI~ target
+	~UUID|URI~ origin
+	~UUID|URI~ target
 }
 class TurboQuote {
 	UUID id
-	~UUID | URI~ origin
-	~UUID | URI~ target
+	~UUID|URI~ origin
+	~UUID|URI~ target
 	Boolean implicit
 }
 class Turbo {
 	UUID id
-	~UUID | URI~ user
-	~UUID | URI~ target
+	~UUID|URI~ user
+	~UUID|URI~ target
 	Date created_at
 }
 class Media {
@@ -94,7 +94,7 @@ class Media {
 	Boolean is_sensitive
 	String description
 	URI content
-	~URI | String~ license
+	~URI|String~ license
 }
 Note--|>NoteReaction
 Note--|>Mention
