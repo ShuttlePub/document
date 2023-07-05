@@ -3,107 +3,128 @@
 ## Account
 
 ```mermaid
-classDiagram
-	class Account {
-		Long id
-		String account_name
-		Boolean is_bot
-		Profile profile
-		Vec~Follow~ follow
-	}
-	class Profile {
-		String display_name
-		String summary
-		String icon
-		String banner
-		Vec~MetaData~ meta_data
-	}
-	class Follow {
-		ULID id
-		~AccountId~long~|String~ target
-	}
-	class MetaData {
-		Long id
-		String label
-		String content
-	}
-	Account --|> Profile
-	Account --|> Follow
-	Profile --|> MetaData
+erDiagram
+accounts {
+	bigserial id "PK"
+	uuid stellar_id "FK"
+	varchar(50) name
+	boolean is_bot
+	timestamp created_at
+}
+profiles {
+	bigserial account_id "FK"
+	varchar(64) display_name
+	text summary
+ 	varchar(256) icon
+	varchar(256) banner
+}
+metadatas {
+	bigserial id "PK"
+	bigserial account_id "FK"
+	varchar(16) label
+	varchar(16) content "nullable"
+}
+stellar_accounts {
+	uuid id "PK"
+	varchar(512) access_token
+	varchar(512) refresh_token
+}
+follows {
+	uuid id "PK"
+	bigsrial source_local "FK(account_id),nullable"
+	bigserial source_remote "FK(remote_account_id),nullable"
+	
+	bigserial destination_local "FK(account_id),nullable"
+	bigserial destination_remote "FK(remote_account_id)nullable"
+}
+
+remote_accounts {
+	bigserial id "PK"
+	varchar(512) url "UNIQUE"
+}
+
+accounts ||--|| profiles : "equals"
+stellar_accounts ||--|| accounts : "equals"
+profiles ||--o{ metadatas : "social links"
+accounts ||--o{ follows : "followings"
+follows }o--|| remote_accounts : "foreign followers"
 ```
 
 ## Note
 
 ```mermaid
-classDiagram
-class Note {
-	UUID id
-	Long author
-	Datedate
-	String content
-	Media[] media
-	String? cw
-	Mention[] mention
-	HashTag[] hashTag
-	Reaction reaction
+erDiagram
+notes {
+	uuid id "PK"
+	bigserial account_id "FK"
+	timestamp posted_at
+	text content
+	varcahr(256) content_warning "nullable"
 }
-class Mention {
-	UUID id
-	UUID origin
-	~Long|URI~ target
+medias {
+	uuid id "PK"
+	uuid note_id "FK"
+	varchar(512) content_url
+	varchar(64) name
+	varchar(256) description "nullable"
+	boolean is_nsfw
+	bigserial license_id
 }
-class NoteReaction {
-	UUID id
-	UUID noteId
-	Long accountId
-	Date created_at
-	~UUID|String~ assetId
+replys {
+	uuid id "PK"
+	uuid origin_local "FK(note_id),UNIQUE,nullable"
+	varchar(512) origin_remote "UNIQUE,nullable"
+	
+	uuid target_local "FK(note_id)"
+	varchar(512) target_remote "UNIQUE,nullable"
 }
-class Asset {
-	UUID id
-	String alias
-	URI cdn
-	~URI|String~ license
-	Date created_at
+turbo_quotes {
+	uuid id "PK"
+	uuid origin_local "FK(note_id),UNIQUE,nullable"
+	varchar(512) origin_remote "UNIQUE,nullable"
+	
+	uuid target_local "FK(note_id),nullable"
+	varchar(512) target_remote "nullable"
+	boolean implicit
 }
-class HashTag {
-	UUID id
-	Date created_at
-	String name
+turbos {
+	uuid id "PK"
+	bigseial account_local "FK(account_id),nullable"
+	bigserial account_remote "FK(remote_account_id),nullable"
+	
+	uuid note_local "FK(note_id),nullable"
+	varchar(512) note_remote "nullable"
 }
-class Reply {
-	UUID id
-	Date created_at
-	~UUID|URI~ origin
-	~UUID|URI~ target
+reactions {
+	uuid id "PK"
+	bigserial account_local "FK(account_id),nullable"
+	bigserial account_remote "FK(remote_account_id),nullable"
+	
+	uuid note_local "FK(note_id),nullable"
+	varchar(512) note_remote "nullable"
+	timestamp created_at
+	bigseial emoji_id
 }
-class TurboQuote {
-	UUID id
-	~UUID|URI~ origin
-	~UUID|URI~ target
-	Boolean implicit
+mensions {
+	uuid id "PK"
+	bigserial note_local "FK(note_id),nullable"
+	varchar(512) note_remote "nullbale"
+	
+	bigserial account_local "FK(account_id),nullable"
+	bigserial account_remote "FK(remote_account_id),nullable"
 }
-class Turbo {
-	UUID id
-	~UUID|URI~ user
-	~UUID|URI~ target
-	Date created_at
+hashtags {
+	bigserial hashtag_id "PK,FK"
+	uuid note_id "PK,FK"
 }
-class Media {
-	UUID id
-	Boolean is_sensitive
-	String description
-	URI content
-	~URI|String~ license
-}
-Note--|>NoteReaction
-Note--|>Mention
-Note--|>Asset
-Note--|>HashTag
-Reply--|>Note
-TurboQuote--|>Note
-Turbo--|>Note
-Note--|>Media
+
+notes ||--o{ medias : "contain medias"
+notes ||--o{ replys : "replyed notes"
+notes ||--o{ turbo_quotes : "quoted notes"
+notes ||--o{ turbos : ""
+notes ||--o{ reactions : ""
+notes ||--o{ mensions : ""
+notes ||--o{ hashtags : ""
 ```
 
 
