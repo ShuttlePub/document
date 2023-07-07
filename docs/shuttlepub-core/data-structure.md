@@ -4,26 +4,6 @@
 
 ```mermaid
 erDiagram
-accounts {
-	bigserial id "PK"
-	uuid stellar_id "FK"
-	varchar(50) name
-	boolean is_bot
-	timestamp created_at
-}
-profiles {
-	bigserial account_id "FK"
-	varchar(64) display_name "nullable"
-	text summary "nullable"
- 	varchar(256) icon "nullable"
-	varchar(256) banner "nullable"
-}
-metadatas {
-	bigserial id "PK"
-	bigserial account_id "FK"
-	varchar(16) label
-	varchar(16) content
-}
 stellar_accounts {
 	uuid id "PK"
 	varchar(512) host "PK"
@@ -35,6 +15,8 @@ accounts {
 	varchar(50) name "PK"
 }
 ```
+
+
 
 ## Note
 
