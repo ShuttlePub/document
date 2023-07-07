@@ -4,51 +4,19 @@
 
 ```mermaid
 erDiagram
-accounts {
-	bigserial id "PK"
-	uuid stellar_id "FK"
-	varchar(50) name
-	boolean is_bot
-	timestamp created_at
-}
-profiles {
-	bigserial account_id "FK"
-	varchar(64) display_name
-	text summary
- 	varchar(256) icon
-	varchar(256) banner
-}
-metadatas {
-	bigserial id "PK"
-	bigserial account_id "FK"
-	varchar(16) label
-	varchar(16) content "nullable"
-}
 stellar_accounts {
 	uuid id "PK"
+	varchar(512) host "PK"
 	varchar(512) access_token
 	varchar(512) refresh_token
 }
-follows {
-	uuid id "PK"
-	bigsrial source_local "FK(account_id),nullable"
-	bigserial source_remote "FK(remote_account_id),nullable"
-	
-	bigserial destination_local "FK(account_id),nullable"
-	bigserial destination_remote "FK(remote_account_id)nullable"
+accounts {
+	uuid stellar_id "PK" 
+	varchar(50) name "PK"
 }
-
-remote_accounts {
-	bigserial id "PK"
-	varchar(512) url "UNIQUE"
-}
-
-accounts ||--|| profiles : "equals"
-stellar_accounts ||--|| accounts : "equals"
-profiles ||--o{ metadatas : "social links"
-accounts ||--o{ follows : "followings"
-follows }o--|| remote_accounts : "foreign followers"
 ```
+
+
 
 ## Note
 
