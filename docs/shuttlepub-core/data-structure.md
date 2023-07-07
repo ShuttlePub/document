@@ -13,16 +13,16 @@ accounts {
 }
 profiles {
 	bigserial account_id "FK"
-	varchar(64) display_name
-	text summary
- 	varchar(256) icon
-	varchar(256) banner
+	varchar(64) display_name "nullable"
+	text summary "nullable"
+ 	varchar(256) icon "nullable"
+	varchar(256) banner "nullable"
 }
 metadatas {
 	bigserial id "PK"
 	bigserial account_id "FK"
 	varchar(16) label
-	varchar(16) content "nullable"
+	varchar(16) content
 }
 stellar_accounts {
 	uuid id "PK"
