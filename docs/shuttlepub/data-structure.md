@@ -14,6 +14,7 @@ accounts {
 	uuid stellar_id "PK" 
 	varchar(50) name "PK"
 }
+stellar_accounts ||--o{ accounts : "related accounts"
 ```
 
 
@@ -46,7 +47,7 @@ replys {
 	uuid target_local "FK(note_id)"
 	varchar(512) target_remote "UNIQUE,nullable"
 }
-turbo_quotes {
+note_quotes {
 	uuid id "PK"
 	uuid origin_local "FK(note_id),UNIQUE,nullable"
 	varchar(512) origin_remote "UNIQUE,nullable"
@@ -55,7 +56,7 @@ turbo_quotes {
 	varchar(512) target_remote "nullable"
 	boolean implicit
 }
-turbos {
+renotes {
 	uuid id "PK"
 	bigseial account_local "FK(account_id),nullable"
 	bigserial account_remote "FK(remote_account_id),nullable"
