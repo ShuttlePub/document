@@ -78,7 +78,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'shuttlepub-core/features',
+            docId: 'shuttlepub/features',
             position: 'left',
             label: 'Features',
           },
