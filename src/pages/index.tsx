@@ -18,7 +18,7 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/shuttlepub-core/features">
+            to="/docs/shuttlepub/features">
             計画中の機能はこちら 🚀
           </Link>
         </div>
