@@ -6,6 +6,7 @@
 erDiagram
 accounts {
 	bigserial id "PK"
+	text domain "PK"
 	uuid stellar_id "PK,FK"
 	varchar(50) name
 	boolean is_bot
