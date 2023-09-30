@@ -1,21 +1,14 @@
 # アカウント作成フロー(ユーザー視点)
 
 1. ShuttlePub上でアカウント作成を開始→ShuttlePubがメインと定めるEmumetにリダイレクト
-
 2. Emumet
-
    - 既存のStellarアカウントを使う→StellarのIDをユーザーに聞いてリダイレクト(この時Stellar側ではEmumetをRFC7591のOAuthのクライアントとして登録する)
    - 新規Stellarアカウントを使う→EmumetのprimaryなStellarにリダイレクト
-
 3. Stellar
-
    - 新規→Stellarの新規アカウント作成フローに入る
    - 既存→ログイン
-
    どちらからでもEmumetに戻す
-
 4. Emumet→アカウント作成フロー→ShuttlePubに戻す
-
 5. ShuttlePub→アカウントでログイン
 
 ## ログインフロー(ユーザー視点)
