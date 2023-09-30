@@ -1,0 +1,8 @@
+{
+  "label": "Service",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "サービス全体に関係するドキュメントをまとめています"
+  }
+}
