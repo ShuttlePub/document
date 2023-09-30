@@ -7,7 +7,6 @@ erDiagram
 accounts {
 	bigserial id "PK"
 	text domain "PK"
-	uuid stellar_id "PK,FK"
 	varchar(50) name
 	boolean is_bot
 	timestamp created_at
@@ -26,10 +25,15 @@ metadatas {
 	varchar(16) content
 }
 stellar_accounts {
-	uuid id "PK"
-	varchar(512) host "PK"
+	bigserial id "PK"
+	text host "PK"
+	varchar(512) clinet_id "PK"
 	varchar(512) access_token
 	varchar(512) refresh_token
+}
+stellar_emumet_accounts {
+	bugserial stellar_id "PK,FK"
+	bigserial emumet_id "PK,FK"
 }
 follows {
 	uuid id "PK"
@@ -46,7 +50,8 @@ remote_accounts {
 }
 
 accounts ||--|| profiles : "equals"
-stellar_accounts ||--o{ accounts : "created accounts"
+stellar_accounts ||--|{ stellar_emumet_accounts : "linked accounts"
+accounts ||--|{ stellar_emumet_accounts : "linked accounts"
 profiles ||--o{ metadatas : "social links"
 accounts ||--o{ follows : "followings"
 follows }o--|| remote_accounts : "foreign followers"
