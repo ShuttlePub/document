@@ -36,8 +36,8 @@ stellar_emumet_accounts {
 	bigserial emumet_id "PK,FK"
 }
 follows {
-	uuid id "PK"
-	bigsrial source_local "FK(account_id),nullable"
+	bigserial id "PK"
+	bigserial source_local "FK(account_id),nullable"
 	bigserial source_remote "FK(remote_account_id),nullable"
 	
 	bigserial destination_local "FK(account_id),nullable"
