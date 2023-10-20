@@ -15,7 +15,7 @@ const config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
-	staticDirectories: ['static'],
+  staticDirectories: ['static'],
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -62,6 +62,25 @@ const config = {
         },
       }),
     ],
+    [
+      'redocusaurus',
+      {
+        debug: Boolean(process.env.DEBUG || process.env.CI),
+        specs: [
+          {
+            spec: './static/api-spec/shuttlepub/v1.yaml',
+            route: '/api-spec/shuttlepub/v1/'
+          },
+        ],
+        theme: {
+          primaryColor: '#1bd96a',
+          redocOptions: {
+            hideLoading: true,
+            noAutoAuth: true,
+          }
+        }
+      }
+    ]
   ],
 
   themeConfig:
@@ -82,7 +101,13 @@ const config = {
             position: 'left',
             label: 'Features',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          { to: '/blog', label: 'Blog', position: 'left' },
+          {
+            to: 'api-spec/shuttlepub/v1/',
+            label: 'ShuttlePub API Routes',
+            position: 'left',
+            activeBasePath: 'api-spec/shuttlepub/v1/',
+          },
           {
             href: 'https://github.com/ShuttlePub/document',
             label: 'GitHub',
