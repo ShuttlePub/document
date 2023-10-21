@@ -62,25 +62,25 @@ const config = {
         },
       }),
     ],
-    // [
-    //   'redocusaurus',
-    //   {
-    //     debug: Boolean(process.env.DEBUG || process.env.CI),
-    //     specs: [
-    //       {
-    //         spec: './static/api-spec/shuttlepub/v1.yaml',
-    //         route: '/api-spec/shuttlepub/v1/'
-    //       },
-    //     ],
-    //     theme: {
-    //       primaryColor: '#1bd96a',
-    //       redocOptions: {
-    //         hideLoading: true,
-    //         noAutoAuth: true,
-    //       }
-    //     }
-    //   }
-    // ]
+    [
+      'redocusaurus',
+      {
+        debug: Boolean(process.env.DEBUG || process.env.CI),
+        specs: [
+          {
+            spec: './static/api-spec/shuttlepub/v1.yaml',
+            route: '/api-spec/shuttlepub/v1/'
+          },
+        ],
+        theme: {
+          primaryColor: '#1bd96a',
+          redocOptions: {
+            hideLoading: true,
+            noAutoAuth: true,
+          }
+        }
+      }
+    ]
   ],
 
   themeConfig:
@@ -102,12 +102,12 @@ const config = {
             label: 'Features',
           },
           { to: '/blog', label: 'Blog', position: 'left' },
-          // {
-          //   to: 'api-spec/shuttlepub/v1/',
-          //   label: 'ShuttlePub API Routes',
-          //   position: 'left',
-          //   activeBasePath: 'api-spec/shuttlepub/v1/',
-          // },
+          {
+            to: 'api-spec/shuttlepub/v1/',
+            label: 'ShuttlePub API Routes',
+            position: 'left',
+            activeBasePath: 'api-spec/shuttlepub/v1/',
+          },
           {
             href: 'https://github.com/ShuttlePub/document',
             label: 'GitHub',
