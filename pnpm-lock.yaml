@@ -37,12 +37,12 @@ devDependencies:
   '@docusaurus/module-type-aliases':
     specifier: 3.0.0-rc.0
     version: 3.0.0-rc.0(react-dom@18.2.0)(react@18.2.0)
+  '@docusaurus/tsconfig':
+    specifier: 3.0.0-rc.0
+    version: 3.0.0-rc.0
   '@docusaurus/types':
     specifier: 3.0.0-rc.0
     version: 3.0.0-rc.0(react-dom@18.2.0)(react@18.2.0)
-  '@tsconfig/docusaurus':
-    specifier: ^1.0.6
-    version: 1.0.6
   '@types/react':
     specifier: ^18.2.29
     version: 18.2.31
@@ -2831,6 +2831,10 @@ packages:
       tslib: 2.6.2
     dev: false
 
+  /@docusaurus/tsconfig@3.0.0-rc.0:
+    resolution: {integrity: sha512-jQJl1DA1BGYn4KsTTqC/J3hPZCDxSYNkFzFl6tq28FqUO0sCRMlLsRYY32m0hUbXyIk4v99HZzV0tiCQCX9c3Q==}
+    dev: true
+
   /@docusaurus/types@2.4.3(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-W6zNLGQqfrp/EoPD0bhb9n7OobP+RHpmvVzpA+Z/IuU3Q63njJM24hmT0GYboovWcDtFmnIJC9wcyx4RVPQscw==}
     peerDependencies:
@@ -3520,10 +3524,6 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
     dev: false
-
-  /@tsconfig/docusaurus@1.0.6:
-    resolution: {integrity: sha512-1QxDaP54hpzM6bq9E+yFEo4F9WbWHhsDe4vktZXF/iDlc9FqGr9qlg+3X/nuKQXx8QxHV7ue8NXFazzajsxFBA==}
-    dev: true
 
   /@types/acorn@4.0.6:
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
