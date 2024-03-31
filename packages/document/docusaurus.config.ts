@@ -106,16 +106,18 @@ const config : Config = {
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
-            to: 'api-spec/shuttlepub/v1/',
-            label: 'ShuttlePub API Routes',
+            label: 'API Spec',
             position: 'left',
-            activeBasePath: 'api-spec/shuttlepub/v1/',
-          },
-          {
-            to: 'api-spec/emumet/v1/',
-            label: 'Emumet API Routes',
-            position: 'left',
-            activeBasePath: 'api-spec/emumet/v1/',
+            items: [
+              {
+                label: 'ShuttlePub v1',
+                to: 'api-spec/shuttlepub/v1/',
+              },
+              {
+                label: 'Emumet v1',
+                to: 'api-spec/emumet/v1/',
+              },
+            ],
           },
           {
             href: 'https://github.com/ShuttlePub/document',
