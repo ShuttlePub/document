@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "tsp compile ./src/main.tsp --emit @typespec/openapi3",
+    "postbuild": "echo build complete",
     "format": "tsp format src"
   },
   "devDependencies": {

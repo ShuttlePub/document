@@ -4,3 +4,4 @@
 # Generated files
 .docusaurus
 .cache-loader
+openapi*.yaml
