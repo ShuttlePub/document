@@ -1,2 +1,2 @@
 #!/bin/sh
-mv packages/emumet-api/tsp-output/@typespec/openapi3/* packages/document/static/api-spec/
+mv packages/api/tsp-output/@typespec/openapi3/* packages/document/static/api-spec/
