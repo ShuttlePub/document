@@ -74,7 +74,6 @@ namespace User {
   @summary("Get a user from id")
   @get
   op get(
-    ...Header.Accept.ActivityJson,
     @path
     id: UserId,
   ):
