@@ -1,2 +1,2 @@
-import "./emumet.tsp";
-import "./shuttlepub.tsp";
+import "./emumet";
+import "./shuttlepub";
