@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "./account.tsp";
+import "./profile.tsp";
 
 using TypeSpec.Http;
 

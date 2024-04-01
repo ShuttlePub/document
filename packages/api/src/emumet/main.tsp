@@ -13,13 +13,7 @@ using TypeSpec.Versioning;
 @service({
   title: "Emumet REST API",
 })
-@server(
-  "/",
-  "Emument flagship server endpoint",
-  {
-    apiVersion: EmumetVersions = EmumetVersions.v1,
-  }
-)
+@server("/", "Emument flagship server endpoint")
 @versioned(EmumetVersions)
 namespace Emumet;
 
