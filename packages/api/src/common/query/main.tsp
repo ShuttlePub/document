@@ -4,11 +4,12 @@ using TypeSpec.Http;
 
 namespace Query;
 
-model ArrayLimitQueries<Max extends valueof numeric = 100> {
+model ArrayLimitQueries<Max extends valueof numeric = 100, DefaultLimit extends valueof numeric = 30> {
   @maxValue(Max)
   @minValue(1)
   @query
-  limit?: integer = 30;
+  @doc("Default: ${DefaultLimit}")
+  limit?: integer;
 
   @minValue(0)
   @query
