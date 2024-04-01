@@ -31,7 +31,7 @@ model AccountResponse {
 interface Accounts {
   @summary("Get all your accounts")
   @get
-  get(): {
+  get(...Query.ArrayLimitQueries<DefaultLimit = 5>): {
     ...StatusCode.Success;
 
     @body

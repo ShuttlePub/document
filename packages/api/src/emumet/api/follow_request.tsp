@@ -1,6 +1,7 @@
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/openapi3";
+import "../../common/query";
 import "../../common/status-code.tsp";
 import "./account.tsp";
 
@@ -16,6 +17,7 @@ interface FollowRequests {
   @summary("Get follow requests")
   @get
   getFollowRequests(
+    ...Query.ArrayLimitQueries,
     @path
     account_id: AccountAPI.AccountId,
   ):
