@@ -7,6 +7,7 @@ namespace Common.Header.ContentType {
     @header
     contentType: T;
   }
-  model JsonResourceDescriptor is ContentType<"application/jrd+json; charset=utf-8">;
+  model JsonResourceDescriptor
+    is ContentType<"application/jrd+json; charset=utf-8">;
   model ActivityJson is ContentType<"application/activity+json; charset=utf-8">;
 }
