@@ -2,6 +2,7 @@ import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/openapi3";
 import "../common/status-code.tsp";
+import "../common/header/content-type.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -31,13 +32,17 @@ model Link {
   href: string = "https://example.com/actor";
 }
 
-@doc("The acct URI. Example: acct:example@example.com")
-scalar Acct extends string;
-@doc("The URI. Example: https://example.com/actor")
-scalar URI extends string;
+model Primitives {
+  acct: string = "acct:example@example.com";
+  uri: string = "https://example.com/actor";
+}
+
+alias Acct = Primitives.acct;
+
+alias URI = Primitives.uri;
 
 interface Webfinger {
-  @doc("The WebFinger query.")
+  @doc("The WebFinger query")
   @get
   get(
     @doc("The resource to query")
@@ -46,6 +51,7 @@ interface Webfinger {
   ):
     | {
         ...StatusCode.Success;
+        ...Header.ContentType.JsonResourceDescriptor;
 
         @body
         body: Response;
