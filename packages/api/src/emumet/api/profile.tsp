@@ -1,6 +1,7 @@
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/openapi3";
+import "../../common/header/content-type.tsp";
 import "../../common/status-code.tsp";
 import "./account.tsp";
 
@@ -43,7 +44,11 @@ interface Profiles {
 
   @summary("Create a profile")
   @post
-  create(@path id: AccountAPI.AccountId, @body request: ProfileCreateRequest):
+  create(
+    ...Header.ContentType.MultiPartFormData,
+    @path id: AccountAPI.AccountId,
+    @body request: ProfileCreateRequest,
+  ):
     | StatusCode.Success
     | StatusCode.BadRequest
     | StatusCode.NotFound
@@ -51,7 +56,11 @@ interface Profiles {
 
   @summary("Update a profile")
   @patch
-  update(@path id: AccountAPI.AccountId, @body request: ProfileUpdateRequest):
+  update(
+    ...Header.ContentType.MultiPartFormData,
+    @path id: AccountAPI.AccountId,
+    @body request: ProfileUpdateRequest,
+  ):
     | StatusCode.Success
     | StatusCode.BadRequest
     | StatusCode.NotFound
