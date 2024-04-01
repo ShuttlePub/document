@@ -3,8 +3,10 @@ import "@typespec/http";
 using TypeSpec.Http;
 
 namespace Common.Header.ContentType {
-  model JsonResourceDescriptor {
+  model ContentType<T> {
     @header
-    contentType: "application/jrd+json; charset=utf-8";
+    contentType: T;
   }
+  model JsonResourceDescriptor is ContentType<"application/jrd+json; charset=utf-8">;
+  model ActivityJson is ContentType<"application/activity+json; charset=utf-8">;
 }
