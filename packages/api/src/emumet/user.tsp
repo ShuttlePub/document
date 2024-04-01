@@ -11,7 +11,7 @@ using TypeSpec.Rest;
 using Common;
 
 @tag("user")
-@route("/users")
+@route("/users/{id}")
 namespace Emumet.UserAPI;
 
 model Attachment {
@@ -69,11 +69,10 @@ model UserResponse {
   icon: ActivityStreams.Image;
 }
 
-@route("/{id}")
-namespace User {
+interface User {
   @summary("Get a user from id")
   @get
-  op get(
+  get(
     @path
     id: UserId,
   ):

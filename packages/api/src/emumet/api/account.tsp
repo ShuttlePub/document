@@ -48,10 +48,10 @@ interface Accounts {
 }
 
 @route("/{id}")
-namespace Account {
+interface Account {
   @summary("Get an account")
   @get
-  op get(@path id: AccountId): {
+  get(@path id: AccountId): {
     ...StatusCode.Success;
 
     @body
@@ -60,7 +60,7 @@ namespace Account {
 
   @summary("Delete an account")
   @delete
-  op delete(@path id: AccountId): {
+  delete(@path id: AccountId): {
     ...StatusCode.Success;
   } | StatusCode.BadRequest | StatusCode.InternalError;
 }
