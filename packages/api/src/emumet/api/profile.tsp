@@ -50,7 +50,7 @@ interface Profiles {
     | StatusCode.InternalError;
 
   @summary("Update a profile")
-  @put
+  @patch
   update(@path id: AccountAPI.AccountId, @body request: ProfileUpdateRequest):
     | StatusCode.Success
     | StatusCode.BadRequest
