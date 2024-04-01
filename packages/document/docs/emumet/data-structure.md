@@ -78,6 +78,7 @@ erDiagram
         uuid source_remote "FK(remote_account_id),NULL"
         uuid destination_local "FK(account_id),NULL"
         uuid destination_remote "FK(remote_account_id)NULL"
+        timetamp approved_at "NULL"
     }
     follow_events {
         bigint version "PK"
