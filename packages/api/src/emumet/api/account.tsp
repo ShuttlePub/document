@@ -2,6 +2,7 @@ import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/openapi3";
 import "../../common/status-code.tsp";
+import "../../common/query";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -62,5 +63,25 @@ interface Account {
   @delete
   delete(@path id: AccountId): {
     ...StatusCode.Success;
+  } | StatusCode.BadRequest | StatusCode.InternalError;
+
+  @summary("Get follows")
+  @route("/follows")
+  @get
+  getFollows(...Query.ArrayLimitQueries, @path id: AccountId): {
+    ...StatusCode.Success;
+
+    @body
+    body: AccountId[];
+  } | StatusCode.BadRequest | StatusCode.InternalError;
+
+  @summary("Get followers")
+  @route("/followers")
+  @get
+  getFollowers(...Query.ArrayLimitQueries, @path id: AccountId): {
+    ...StatusCode.Success;
+
+    @body
+    body: AccountId[];
   } | StatusCode.BadRequest | StatusCode.InternalError;
 }
