@@ -15,6 +15,11 @@ namespace Common.StatusCode {
     @statusCode
     statusCode: 400;
   }
+  @doc("Authorized, but not permitted")
+  model Forbidden {
+    @statusCode
+    statusCode: 403;
+  }
   model NotFound {
     @statusCode
     statusCode: 404;
