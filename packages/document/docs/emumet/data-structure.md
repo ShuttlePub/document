@@ -12,6 +12,7 @@ erDiagram
         boolean is_bot
         timestamp created_at
         boolean is_deleted
+        uuid current_moderation "FK(moderation_id)"
     }
     account_events {
         bigint version "PK"
@@ -57,6 +58,7 @@ erDiagram
         text clinet_id "PK"
         text access_token
         text refresh_token
+        uuid current_moderation "FK(moderation_id),NULL"
     }
     stellar_account_events {
         bigint version "PK"
@@ -102,6 +104,22 @@ erDiagram
         text hash
         text blurhash
     }
+    moderation {
+        uuid id "PK"
+        uuid moderated_by "FK(stellar_id)"
+        text type
+        text comment
+        timestamp created_at
+    }
+    moderation_events {
+        bigint version "PK"
+        uuid moderation_id "PK"
+        text event_name
+        uuid moderated_by "NULL"
+        text type "NULL"
+        text comment "NULL"
+        timestamp created_at
+    }
 
     accounts ||--|{ account_events: "account history"
     accounts ||--|| profiles: "profile"
@@ -116,4 +134,7 @@ erDiagram
     follows ||--|{ follow_events: "follow history"
     profiles ||--o{ images: "icon&banner"
     remote_accounts ||--|| images: "icon"
+    accounts ||--o| moderation: "moderation"
+    stellar_accounts ||--o| moderation: "moderation"
+    moderation ||--|{ moderation_events: "moderation history"
 ```
