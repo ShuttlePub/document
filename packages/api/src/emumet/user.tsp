@@ -89,7 +89,7 @@ interface User {
 }
 
 alias InsertableActivities =
-  | ActivityStreams.BaseObject<string> & ActivityStreams.WithContext
+  | (ActivityStreams.BaseObject<string> & ActivityStreams.WithContext)
   | ActivityStreams.FollowWithContext
   | ActivityStreams.DeleteWithContext
   | ActivityStreams.LikeWithContext
