@@ -18,6 +18,7 @@ interface FollowRequests {
   @get
   getFollowRequests(
     ...Query.ArrayLimitQueries,
+
     @path
     account_id: AccountAPI.AccountId,
   ):

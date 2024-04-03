@@ -7,6 +7,10 @@ namespace Common.StatusCode {
     @statusCode
     statusCode: 200;
   }
+  model Accepted {
+    @statusCode
+    statusCode: 202;
+  }
   model BadRequest {
     @statusCode
     statusCode: 400;
