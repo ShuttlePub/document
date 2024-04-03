@@ -98,7 +98,9 @@ alias InsertableActivities =
   | ActivityStreams.CreateWithContext
   | ActivityStreams.UpdateWithContext
   | ActivityStreams.DeleteWithContext
-  | ActivityStreams.AnnounceWithContext;
+  | ActivityStreams.AnnounceWithContext
+  | ActivityStreams.AcceptWithContext
+  | ActivityStreams.RejectWithContext;
 
 @route("/inbox")
 interface Inbox {

@@ -117,6 +117,7 @@ model Note extends BaseObject<"Note"> {
   quoteUrl?: url;
 }
 
+@doc("Treats as Boost/ReNote")
 model Announce extends BaseObject<"Announce"> {
   actor: url;
   object: url;
@@ -138,6 +139,26 @@ model Follow extends BaseObject<"Follow"> {
 }
 
 model FollowWithContext is Follow {
+  ...WithContext;
+}
+
+model Accept extends BaseObject<"Accept"> {
+  actor: url;
+  object: url;
+  published: utcDateTime;
+}
+
+model AcceptWithContext is Accept {
+  ...WithContext;
+}
+
+model Reject extends BaseObject<"Reject"> {
+  actor: url;
+  object: url;
+  published: utcDateTime;
+}
+
+model RejectWithContext is Reject {
   ...WithContext;
 }
 
