@@ -49,10 +49,10 @@ interface Accounts {
 }
 
 @route("/{id}")
-interface Account {
+namespace Account {
   @summary("Get an account")
   @get
-  get(@path id: AccountId): {
+  op get(@path id: AccountId): {
     ...StatusCode.Success;
 
     @body
@@ -61,14 +61,14 @@ interface Account {
 
   @summary("Delete an account")
   @delete
-  delete(@path id: AccountId): {
+  op delete(@path id: AccountId): {
     ...StatusCode.Success;
   } | StatusCode.BadRequest | StatusCode.InternalError;
 
   @summary("Get follows")
   @route("/follows")
   @get
-  getFollows(...Query.ArrayLimitQueries, @path id: AccountId): {
+  op getFollows(...Query.ArrayLimitQueries, @path id: AccountId): {
     ...StatusCode.Success;
 
     @body
@@ -78,10 +78,56 @@ interface Account {
   @summary("Get followers")
   @route("/followers")
   @get
-  getFollowers(...Query.ArrayLimitQueries, @path id: AccountId): {
+  op getFollowers(...Query.ArrayLimitQueries, @path id: AccountId): {
     ...StatusCode.Success;
 
     @body
     body: AccountId[];
   } | StatusCode.BadRequest | StatusCode.InternalError;
+
+  @route("/blocks")
+  interface Block {
+    @get
+    get(...Query.ArrayLimitQueries, @path id: AccountId): {
+      ...StatusCode.Success;
+
+      @body
+      body: AccountId[];
+    } | StatusCode.BadRequest | StatusCode.InternalError;
+
+    @post
+    post(
+      @path id: AccountId,
+      target: AccountId,
+    ): StatusCode.Success | StatusCode.BadRequest | StatusCode.InternalError;
+
+    @delete
+    delete(
+      @path id: AccountId,
+      target: AccountId,
+    ): StatusCode.Success | StatusCode.BadRequest | StatusCode.InternalError;
+  }
+
+  @route("/mutes")
+  interface Mute {
+    @get
+    get(...Query.ArrayLimitQueries, @path id: AccountId): {
+      ...StatusCode.Success;
+
+      @body
+      body: AccountId[];
+    } | StatusCode.BadRequest | StatusCode.InternalError;
+
+    @post
+    post(
+      @path id: AccountId,
+      target: AccountId,
+    ): StatusCode.Success | StatusCode.BadRequest | StatusCode.InternalError;
+
+    @delete
+    delete(
+      @path id: AccountId,
+      target: AccountId,
+    ): StatusCode.Success | StatusCode.BadRequest | StatusCode.InternalError;
+  }
 }
