@@ -52,9 +52,14 @@ erDiagram
         text content "NULL"
         timestamp created_at
     }
+    stellar_hosts {
+        uuid id "PK"
+        text host "UNIQUE"
+        uuid current_moderation "NULL,FK(moderation_id)"
+    }
     stellar_accounts {
         uuid id "PK,FK"
-        text host "PK"
+        uuid host "PK,FK(stellar_host)"
         text clinet_id "PK"
         text access_token
         text refresh_token
@@ -104,14 +109,30 @@ erDiagram
         text hash
         text blurhash
     }
-    moderation {
+    host_moderation {
         uuid id "PK"
         uuid moderated_by "FK(stellar_id)"
         text type
         text comment
         timestamp created_at
     }
-    moderation_events {
+    host_moderation_events {
+        bigint version "PK"
+        uuid moderation_id "PK"
+        text event_name
+        uuid moderated_by "NULL"
+        text type "NULL"
+        text comment "NULL"
+        timestamp created_at
+    }
+    user_moderation {
+        uuid id "PK"
+        uuid moderated_by "FK(stellar_id)"
+        text type
+        text comment
+        timestamp created_at
+    }
+    user_moderation_events {
         bigint version "PK"
         uuid moderation_id "PK"
         text event_name
@@ -123,6 +144,7 @@ erDiagram
 
     accounts ||--|{ account_events: "account history"
     accounts ||--|| profiles: "profile"
+    stellar_hosts ||--|{ stellar_accounts: "accounts"
     stellar_accounts ||--|{ stellar_emumet_accounts: "linked accounts"
     stellar_accounts ||--o{ stellar_account_events: "account history"
     accounts ||--|{ stellar_emumet_accounts: "linked accounts"
@@ -134,7 +156,9 @@ erDiagram
     follows ||--|{ follow_events: "follow history"
     profiles ||--o{ images: "icon&banner"
     remote_accounts ||--|| images: "icon"
-    accounts ||--o| moderation: "moderation"
-    stellar_accounts ||--o| moderation: "moderation"
-    moderation ||--|{ moderation_events: "moderation history"
+    stellar_hosts ||--o| host_moderation: "moderation"
+    host_moderation ||--|{ host_moderation_events: "moderation history"
+    accounts ||--o| user_moderation: "moderation"
+    stellar_accounts ||--o| user_moderation: "moderation"
+    user_moderation ||--|{ user_moderation_events: "moderation history"
 ```

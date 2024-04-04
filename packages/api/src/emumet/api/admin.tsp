@@ -13,6 +13,10 @@ using Common;
 @route("/admin")
 namespace Emumet.API.AdminAPI;
 
+model ModerationInformation {
+  comment: string;
+}
+
 @route("/accounts")
 namespace Accounts {
   @summary("Get all of accounts in this service")
@@ -27,10 +31,6 @@ namespace Accounts {
     | StatusCode.BadRequest
     | StatusCode.Forbidden
     | StatusCode.InternalError;
-
-  model ModerationInformation {
-    comment: string;
-  }
 
   model SuspendRequest is ModerationInformation;
 
@@ -66,6 +66,48 @@ namespace Accounts {
     @doc("Unsuspend account")
     @delete
     delete(@path id: AccountAPI.AccountId):
+      | StatusCode.Success
+      | StatusCode.BadRequest
+      | StatusCode.Forbidden
+      | StatusCode.NotFound
+      | StatusCode.InternalError;
+  }
+}
+
+@route("/stellar")
+namespace Stellar {
+  model StellarModrationInformation is ModerationInformation {
+    host: url;
+  }
+
+  model StellarBlockRequest is StellarModrationInformation;
+
+  model StellarBlockResponse<ModeratorId> is StellarModrationInformation {
+    moderated_by: ModeratorId;
+    created_at: utcDateTime;
+  }
+
+  @route("/block")
+  interface Block {
+    @get
+    get(...Query.ArrayLimitQueries):
+      | {
+          ...StatusCode.Success;
+          host: StellarBlockResponse<StellarAPI.StellarId>[];
+        }
+      | StatusCode.BadRequest
+      | StatusCode.Forbidden
+      | StatusCode.InternalError;
+
+    @post
+    post(host: StellarBlockRequest):
+      | StatusCode.Success
+      | StatusCode.BadRequest
+      | StatusCode.Forbidden
+      | StatusCode.InternalError;
+
+    @delete
+    delete(host: url):
       | StatusCode.Success
       | StatusCode.BadRequest
       | StatusCode.Forbidden
