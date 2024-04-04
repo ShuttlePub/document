@@ -11,4 +11,3 @@ namespace Emumet.API.StellarAPI;
 
 @format("uuid")
 scalar StellarId extends string;
-
