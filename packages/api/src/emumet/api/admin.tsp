@@ -87,6 +87,59 @@ namespace Stellar {
     created_at: utcDateTime;
   }
 
+  @route("/operators")
+  namespace Operators {
+    scalar RoleName extends string;
+    model Role {
+      role: RoleName;
+    }
+    model RoleRequest is Role;
+    model RoleResponse is Role;
+
+    @get
+    op get(...Query.ArrayLimitQueries, @query target_role?: RoleName):
+      | {
+          ...StatusCode.Success;
+
+          @body
+          operators: StellarAPI.StellarId[];
+        }
+      | StatusCode.BadRequest
+      | StatusCode.Forbidden
+      | StatusCode.InternalError;
+
+    @route("/{id}")
+    interface Operator {
+      @get
+      get(@path id: StellarAPI.StellarId):
+        | {
+            ...StatusCode.Success;
+
+            @body
+            body: RoleResponse;
+          }
+        | StatusCode.BadRequest
+        | StatusCode.Forbidden
+        | StatusCode.NotFound
+        | StatusCode.InternalError;
+      @post
+      post(@path id: StellarAPI.StellarId, @body body: RoleRequest):
+        | StatusCode.Success
+        | StatusCode.BadRequest
+        | StatusCode.Forbidden
+        | StatusCode.NotFound
+        | StatusCode.InternalError;
+
+      @delete
+      delete(@path id: StellarAPI.StellarId):
+        | StatusCode.Success
+        | StatusCode.BadRequest
+        | StatusCode.Forbidden
+        | StatusCode.NotFound
+        | StatusCode.InternalError;
+    }
+  }
+
   @route("/block")
   interface Block {
     @get

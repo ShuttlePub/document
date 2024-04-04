@@ -75,6 +75,17 @@ erDiagram
         text refresh_token "NULL"
         timestamp created_at
     }
+    moderators {
+        uuid stellar_id "PK,FK"
+        text role_name
+    }
+    moderator_events {
+        bigint version "PK"
+        uuid stellar_id "PK"
+        text event_name
+        text role_name "NULL"
+        timestamp created_at
+    }
     stellar_emumet_accounts {
         uuid stellar_id "PK,FK"
         uuid emumet_id "PK,FK"
@@ -147,6 +158,8 @@ erDiagram
     stellar_hosts ||--|{ stellar_accounts: "accounts"
     stellar_accounts ||--|{ stellar_emumet_accounts: "linked accounts"
     stellar_accounts ||--o{ stellar_account_events: "account history"
+    moderators ||--|{ moderator_events: "moderator history"
+    moderators ||--o| stellar_accounts: "moderators"
     accounts ||--|{ stellar_emumet_accounts: "linked accounts"
     metadatas }|--|{ metadata_events: "metadata history"
     profiles ||--o{ metadatas: "social links"
