@@ -12,7 +12,7 @@ erDiagram
         boolean is_bot
         timestamp created_at
         boolean is_deleted
-        uuid current_moderation "FK(moderation_id)"
+        uuid current_moderation "NULL,FK(moderation_id)"
     }
     account_events {
         bigint version "PK"
@@ -58,7 +58,7 @@ erDiagram
         text clinet_id "PK"
         text access_token
         text refresh_token
-        uuid current_moderation "FK(moderation_id),NULL"
+        uuid current_moderation "NULL,FK(moderation_id)"
     }
     stellar_account_events {
         bigint version "PK"
@@ -76,10 +76,10 @@ erDiagram
     }
     follows {
         uuid id "PK,FK"
-        uuid source_local "FK(account_id),NULL"
-        uuid source_remote "FK(remote_account_id),NULL"
-        uuid destination_local "FK(account_id),NULL"
-        uuid destination_remote "FK(remote_account_id)NULL"
+        uuid source_local "NULL,FK(account_id"
+        uuid source_remote "NULL,FK(remote_account_id)"
+        uuid destination_local "NULL,FK(account_id"
+        uuid destination_remote "NULL,FK(remote_account_id)"
         timetamp approved_at "NULL"
     }
     follow_events {
