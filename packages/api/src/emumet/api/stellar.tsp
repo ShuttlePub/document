@@ -3,6 +3,7 @@ import "@typespec/rest";
 import "@typespec/openapi3";
 import "../../common/status-code.tsp";
 import "../../common/query";
+import "../../common/body";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -30,7 +31,7 @@ namespace Hosts {
     ...StatusCode.Success;
 
     @body
-    body: HostId[];
+    body: Common.Body.ArrayLimitedResponse<HostId>;
   } | StatusCode.BadRequest | StatusCode.InternalError;
 
   @route("/{id}")
@@ -59,7 +60,7 @@ namespace Accounts {
     ...StatusCode.Success;
 
     @body
-    body: StellarId[];
+    body: Common.Body.ArrayLimitedResponse<StellarId>;
   } | StatusCode.BadRequest | StatusCode.InternalError;
 
   @route("/{id}")

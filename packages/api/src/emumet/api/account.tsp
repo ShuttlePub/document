@@ -3,10 +3,12 @@ import "@typespec/rest";
 import "@typespec/openapi3";
 import "../../common/status-code.tsp";
 import "../../common/query";
+import "../../common/body";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using Common;
+using Common.Body;
 
 @tag("account")
 @route("/accounts")
@@ -35,7 +37,7 @@ interface Accounts {
     ...StatusCode.Success;
 
     @body
-    body: AccountResponse[];
+    body: Common.Body.ArrayLimitedResponse<AccountResponse>;
   } | StatusCode.BadRequest | StatusCode.InternalError;
 
   @summary("Create a new account")
@@ -72,7 +74,7 @@ namespace Account {
     ...StatusCode.Success;
 
     @body
-    body: AccountId[];
+    body: Common.Body.ArrayLimitedResponse<AccountId>;
   } | StatusCode.BadRequest | StatusCode.InternalError;
 
   @summary("Get followers")
@@ -82,7 +84,7 @@ namespace Account {
     ...StatusCode.Success;
 
     @body
-    body: AccountId[];
+    body: Common.Body.ArrayLimitedResponse<AccountId>;
   } | StatusCode.BadRequest | StatusCode.InternalError;
 
   @route("/blocks")
@@ -92,7 +94,7 @@ namespace Account {
       ...StatusCode.Success;
 
       @body
-      body: AccountId[];
+      body: Common.Body.ArrayLimitedResponse<AccountId>;
     } | StatusCode.BadRequest | StatusCode.InternalError;
 
     @post
@@ -115,7 +117,7 @@ namespace Account {
       ...StatusCode.Success;
 
       @body
-      body: AccountId[];
+      body: Common.Body.ArrayLimitedResponse<AccountId>;
     } | StatusCode.BadRequest | StatusCode.InternalError;
 
     @post

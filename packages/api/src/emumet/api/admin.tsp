@@ -2,6 +2,7 @@ import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/openapi3";
 import "../../common/query";
+import "../../common/body";
 import "../../common/status-code.tsp";
 import "./stellar.tsp";
 
@@ -26,7 +27,7 @@ namespace Accounts {
         ...StatusCode.Success;
 
         @body
-        accounts: AccountAPI.AccountId[];
+        body: Common.Body.ArrayLimitedResponse<AccountAPI.AccountId>;
       }
     | StatusCode.BadRequest
     | StatusCode.Forbidden
@@ -47,7 +48,7 @@ namespace Accounts {
           ...StatusCode.Success;
 
           @body
-          body: SuspendResponse<StellarAPI.StellarId>;
+          body: Common.Body.ArrayLimitedResponse<SuspendResponse<StellarAPI.StellarId>>;
         }
       | StatusCode.BadRequest
       | StatusCode.Forbidden
@@ -102,7 +103,7 @@ namespace Stellar {
           ...StatusCode.Success;
 
           @body
-          operators: StellarAPI.StellarId[];
+          body: Common.Body.ArrayLimitedResponse<StellarAPI.StellarId>;
         }
       | StatusCode.BadRequest
       | StatusCode.Forbidden
@@ -146,7 +147,7 @@ namespace Stellar {
     get(...Query.ArrayLimitQueries):
       | {
           ...StatusCode.Success;
-          host: StellarBlockResponse<StellarAPI.StellarId>[];
+          host: Common.Body.ArrayLimitedResponse<StellarBlockResponse<StellarAPI.StellarId>>;
         }
       | StatusCode.BadRequest
       | StatusCode.Forbidden
