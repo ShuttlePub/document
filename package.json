@@ -3,9 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "pnpm document build",
+    "build": "pnpm build:api && pnpm build:document",
+    "dev": "pnpm build:api && pnpm document start",
+    "build:document": "pnpm document build",
+    "build:api": "pnpm api build && ./scripts/move-api.sh",
     "document": "pnpm -C packages/document",
-    "emumet-api": "pnpm -C packages/emumet-api"
+    "api": "pnpm -C packages/api"
   },
   "engines": {
     "node": ">=18.0"

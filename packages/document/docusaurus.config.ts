@@ -72,6 +72,10 @@ const config : Config = {
             spec: './static/api-spec/shuttlepub/v1.yaml',
             route: '/api-spec/shuttlepub/v1/'
           },
+          {
+            spec: './static/api-spec/openapi.Emumet.v1.yaml',
+            route: '/api-spec/emumet/v1/'
+          },
         ],
         theme: {
           primaryColor: '#1bd96a',
@@ -102,10 +106,18 @@ const config : Config = {
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
-            to: 'api-spec/shuttlepub/v1/',
-            label: 'ShuttlePub API Routes',
+            label: 'API Spec',
             position: 'left',
-            activeBasePath: 'api-spec/shuttlepub/v1/',
+            items: [
+              {
+                label: 'ShuttlePub v1',
+                to: 'api-spec/shuttlepub/v1/',
+              },
+              {
+                label: 'Emumet v1',
+                to: 'api-spec/emumet/v1/',
+              },
+            ],
           },
           {
             href: 'https://github.com/ShuttlePub/document',

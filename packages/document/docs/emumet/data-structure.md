@@ -12,6 +12,7 @@ erDiagram
         boolean is_bot
         timestamp created_at
         boolean is_deleted
+        uuid current_moderation "NULL,FK(moderation_id)"
     }
     account_events {
         bigint version "PK"
@@ -51,12 +52,18 @@ erDiagram
         text content "NULL"
         timestamp created_at
     }
+    stellar_hosts {
+        uuid id "PK"
+        text host "UNIQUE"
+        uuid current_moderation "NULL,FK(moderation_id)"
+    }
     stellar_accounts {
         uuid id "PK,FK"
-        text host "PK"
+        uuid host "PK,FK(stellar_host)"
         text clinet_id "PK"
         text access_token
         text refresh_token
+        uuid current_moderation "NULL,FK(moderation_id)"
     }
     stellar_account_events {
         bigint version "PK"
@@ -68,16 +75,28 @@ erDiagram
         text refresh_token "NULL"
         timestamp created_at
     }
+    moderators {
+        uuid stellar_id "PK,FK"
+        text role_name
+    }
+    moderator_events {
+        bigint version "PK"
+        uuid stellar_id "PK"
+        text event_name
+        text role_name "NULL"
+        timestamp created_at
+    }
     stellar_emumet_accounts {
         uuid stellar_id "PK,FK"
         uuid emumet_id "PK,FK"
     }
     follows {
         uuid id "PK,FK"
-        uuid source_local "FK(account_id),NULL"
-        uuid source_remote "FK(remote_account_id),NULL"
-        uuid destination_local "FK(account_id),NULL"
-        uuid destination_remote "FK(remote_account_id)NULL"
+        uuid source_local "NULL,FK(account_id"
+        uuid source_remote "NULL,FK(remote_account_id)"
+        uuid destination_local "NULL,FK(account_id"
+        uuid destination_remote "NULL,FK(remote_account_id)"
+        timetamp approved_at "NULL"
     }
     follow_events {
         bigint version "PK"
@@ -101,11 +120,46 @@ erDiagram
         text hash
         text blurhash
     }
+    host_moderation {
+        uuid id "PK"
+        uuid moderated_by "FK(stellar_id)"
+        text type
+        text comment
+        timestamp created_at
+    }
+    host_moderation_events {
+        bigint version "PK"
+        uuid moderation_id "PK"
+        text event_name
+        uuid moderated_by "NULL"
+        text type "NULL"
+        text comment "NULL"
+        timestamp created_at
+    }
+    user_moderation {
+        uuid id "PK"
+        uuid moderated_by "FK(stellar_id)"
+        text type
+        text comment
+        timestamp created_at
+    }
+    user_moderation_events {
+        bigint version "PK"
+        uuid moderation_id "PK"
+        text event_name
+        uuid moderated_by "NULL"
+        text type "NULL"
+        text comment "NULL"
+        timestamp created_at
+    }
 
     accounts ||--|{ account_events: "account history"
     accounts ||--|| profiles: "profile"
+    stellar_hosts ||--|{ stellar_accounts: "accounts"
     stellar_accounts ||--|{ stellar_emumet_accounts: "linked accounts"
     stellar_accounts ||--o{ stellar_account_events: "account history"
+    moderators ||--|{ moderator_events: "moderator history"
+    moderators ||--o| stellar_accounts: "moderators"
     accounts ||--|{ stellar_emumet_accounts: "linked accounts"
     metadatas }|--|{ metadata_events: "metadata history"
     profiles ||--o{ metadatas: "social links"
@@ -115,4 +169,9 @@ erDiagram
     follows ||--|{ follow_events: "follow history"
     profiles ||--o{ images: "icon&banner"
     remote_accounts ||--|| images: "icon"
+    stellar_hosts ||--o| host_moderation: "moderation"
+    host_moderation ||--|{ host_moderation_events: "moderation history"
+    accounts ||--o| user_moderation: "moderation"
+    stellar_accounts ||--o| user_moderation: "moderation"
+    user_moderation ||--|{ user_moderation_events: "moderation history"
 ```
