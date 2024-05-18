@@ -1,6 +1,6 @@
 # DataStructure
 
-## Account
+## DatabaseOverview
 
 ```mermaid
 erDiagram
@@ -12,13 +12,12 @@ erDiagram
         boolean is_bot
         timestamp created_at
         boolean is_deleted
-        uuid current_moderation "NULL,FK(moderation_id)"
     }
     account_events {
         bigint version "PK"
         uuid account_id "PK"
         text event_name
-        boolean is_bot "NULL"
+        json data
         timestamp created_at
     }
     profiles {
@@ -32,10 +31,7 @@ erDiagram
         bigint version "PK"
         uuid account_id "PK"
         text event_name
-        text display_name "NULL"
-        text summary "NULL"
-        text icon_id "NULL,FK"
-        text banner_id "NULL,FK"
+        json data
         timestamp created_at
     }
     metadatas {
@@ -48,14 +44,12 @@ erDiagram
         bigint version "PK"
         uuid metadata_id "PK"
         text event_name
-        text label "NULL"
-        text content "NULL"
+        json data
         timestamp created_at
     }
     stellar_hosts {
         uuid id "PK"
         text host "UNIQUE"
-        uuid current_moderation "NULL,FK(moderation_id)"
     }
     stellar_accounts {
         uuid id "PK,FK"
@@ -63,27 +57,12 @@ erDiagram
         text clinet_id "PK"
         text access_token
         text refresh_token
-        uuid current_moderation "NULL,FK(moderation_id)"
     }
     stellar_account_events {
         bigint version "PK"
         uuid stellar_account_id "PK"
         text event_name
-        text host "NULL"
-        text clinet_id "NULL"
-        text access_token "NULL"
-        text refresh_token "NULL"
-        timestamp created_at
-    }
-    moderators {
-        uuid stellar_id "PK,FK"
-        text role_name
-    }
-    moderator_events {
-        bigint version "PK"
-        uuid stellar_id "PK"
-        text event_name
-        text role_name "NULL"
+        json data
         timestamp created_at
     }
     stellar_emumet_accounts {
@@ -102,10 +81,7 @@ erDiagram
         bigint version "PK"
         uuid follow_id "PK"
         text event_name
-        uuid source_local "NULL"
-        uuid source_remote "NULL"
-        uuid destination_local "NULL"
-        uuid destination_remote "NULL"
+        json data
         timestamp created_at
     }
     remote_accounts {
@@ -120,36 +96,51 @@ erDiagram
         text hash
         text blurhash
     }
+    moderator_roles {
+        uuid id "PK"
+        text role_name
+    }
+    moderators {
+        uuid stellar_id "PK,FK(stellar_account)"
+        uuid role_id "PK,FK(moderator_role)"
+    }
+    moderator_events {
+        bigint version "PK"
+        uuid stellar_id "PK"
+        text event_name
+        json data
+        timestamp created_at
+    }
     host_moderation {
         uuid id "PK"
+        uuid target "FK(stellar_host)"
         uuid moderated_by "FK(stellar_id)"
         text type
         text comment
         timestamp created_at
+        timestamp closed_at "NULL"
     }
     host_moderation_events {
         bigint version "PK"
         uuid moderation_id "PK"
         text event_name
-        uuid moderated_by "NULL"
-        text type "NULL"
-        text comment "NULL"
+        json data
         timestamp created_at
     }
     user_moderation {
         uuid id "PK"
+        uuid target "FK(account_id)"
         uuid moderated_by "FK(stellar_id)"
         text type
         text comment
         timestamp created_at
+        timestamp closed_at "NULL"
     }
     user_moderation_events {
         bigint version "PK"
         uuid moderation_id "PK"
         text event_name
-        uuid moderated_by "NULL"
-        text type "NULL"
-        text comment "NULL"
+        json data
         timestamp created_at
     }
 
@@ -175,3 +166,114 @@ erDiagram
     stellar_accounts ||--o| user_moderation: "moderation"
     user_moderation ||--|{ user_moderation_events: "moderation history"
 ```
+
+## Events
+
+### Account
+
+- account_created
+  - name: `text`
+  - private_key: `text`
+  - public_key: `text`
+  - is_bot: `boolean`
+- account_updated
+  - is_bot: `boolean`
+- account_deleted
+
+### Profile
+
+- profile_created
+  - display_name: `text`
+  - summary: `text`
+  - icon_id: `text`
+  - banner_id: `text`
+- profile_updated
+  - display_name?: `text`
+  - summary?: `text`
+  - icon_id?: `text`
+  - banner_id?: `text`
+- profile_deleted
+
+### Metadata
+
+- metadata_created
+  - label: `text`
+  - content: `text`
+- metadata_updated
+  - label?: `text`
+  - content?: `text`
+- metadata_deleted
+
+### StellarAccount
+
+- stellar_account_created
+  - host: `text`
+  - client_id: `text`
+  - access_token: `text`
+  - refresh_token: `text`
+- stellar_account_updated
+  - host?: `text`
+  - client_id?: `text`
+  - access_token?: `text`
+  - refresh_token?: `text`
+- stellar_account_deleted
+
+### Follow
+
+- follow_requested
+  - source_local?: `uuid`
+  - source_remote?: `uuid`
+  - destination_local?: `uuid`
+  - destination_remote?: `uuid`
+- follow_accepted
+  - source_local?: `uuid`
+  - source_remote?: `uuid`
+  - destination_local?: `uuid`
+  - destination_remote?: `uuid`
+- follow_rejected
+  - source_local?: `uuid`
+  - source_remote?: `uuid`
+  - destination_local?: `uuid`
+  - destination_remote?: `uuid`
+
+### Moderator
+
+- role_created
+  - role_name: `text`
+- role_updated
+  - role_name: `text`
+  - role_deleted
+- moderator_assigned
+  - role_name: `text`
+  - account_id: `uuid`
+- moderator_unassigned
+  - role_name: `text`
+  - account_id: `uuid`
+
+### HostModeration
+
+- hostModeration_created
+  - target: `uuid`
+  - moderated_by: `uuid`
+  - type: `text`
+  - comment: `text`
+- host_moderation_updated
+  - target?: `uuid`
+  - moderated_by?: `uuid`
+  - type?: `text`
+  - comment?: `text`
+- host_moderation_closed
+
+### UserModeration
+
+- user_moderation_created
+  - target: `uuid`
+  - moderated_by: `uuid`
+  - type: `text`
+  - comment: `text`
+- user_moderation_updated
+  - target?: `uuid`
+  - moderated_by?: `uuid`
+  - type?: `text`
+  - comment?: `text`
+- user_moderation_closed
