@@ -1,5 +1,21 @@
 # 一般的な処理のフロー
 
+## Stellarアカウントを元にEmumetへログインしてアカウントを選択する
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Stellar
+    participant E as Emumet
+    C ->> S: ログイン
+    C ->> S: Emumet選択
+    S ->> E: 通知
+    E ->> S: エンドポイント登録
+    S ->> C: 確認画面表示
+    C ->> S: 承認
+    S -->> E: リダイレクト
+    C ->> E: アカウント選択/作成
+```
+
 ## 投稿の署名
 ```mermaid
 sequenceDiagram
