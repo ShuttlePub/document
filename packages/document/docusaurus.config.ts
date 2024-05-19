@@ -40,6 +40,16 @@ const config : Config = {
     locales: ['ja'],
   },
 
+  scripts: [
+    {
+      src: 'https://d3js.org/d3.v7.min.js',
+      async: false
+    }
+  ],
+  clientModules: [
+    './src/mermaid-zoom.ts'
+  ],
+
   presets: [
     [
       'classic',
