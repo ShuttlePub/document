@@ -11,7 +11,7 @@ erDiagram
         text public_key
         boolean is_bot
         timestamp created_at
-        boolean is_deleted
+        timestamp deleted_at "NULL"
     }
     account_events {
         bigint version "PK"
