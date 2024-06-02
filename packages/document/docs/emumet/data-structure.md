@@ -89,7 +89,7 @@ erDiagram
         uuid id "PK"
         text acct "UNIQUE"
         text url "UNIQUE"
-        text icon "FK(image_id)"
+        uuid icon "FK(image_id)"
     }
     images {
         uuid id "PK"
