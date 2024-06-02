@@ -24,8 +24,8 @@ erDiagram
         uuid account_id "PK,FK"
         text display_name "NULL"
         text summary "NULL"
-        text icon_id "NULL,FK(image_id)"
-        text banner_id "NULL,FK(image_id)"
+        uuid icon_id "NULL,FK(image_id)"
+        uuid banner_id "NULL,FK(image_id)"
     }
     profile_events {
         bigint version "PK"
@@ -39,6 +39,7 @@ erDiagram
         uuid account_id "FK"
         text label
         text content
+        text created_at
     }
     metadata_events {
         bigint version "PK"
@@ -88,7 +89,7 @@ erDiagram
         uuid id "PK"
         text acct "UNIQUE"
         text url "UNIQUE"
-        text icon_id "FK(image_id)"
+        text icon "FK(image_id)"
     }
     images {
         uuid id "PK"
@@ -98,10 +99,10 @@ erDiagram
     }
     moderator_roles {
         uuid id "PK"
-        text role_name
+        text name
     }
     moderators {
-        uuid stellar_id "PK,FK(stellar_account)"
+        uuid stellar_account_id "PK,FK(stellar_account)"
         uuid role_id "PK,FK(moderator_role)"
     }
     moderator_events {
@@ -120,6 +121,10 @@ erDiagram
         timestamp created_at
         timestamp closed_at "NULL"
     }
+    host_moderation_reports {
+        uuid report_id "PK,FK(account_reports)"
+        uuid moderation_id "PK,FK(host_moderation)"
+    }
     host_moderation_events {
         bigint version "PK"
         uuid moderation_id "PK"
@@ -127,7 +132,27 @@ erDiagram
         json data
         timestamp created_at
     }
-    user_moderation {
+    stellar_account_moderation {
+        uuid id "PK"
+        uuid target "FK(stellar_id)"
+        uuid moderated_by "FK(stellar_id)"
+        text type
+        text comment
+        timestamp created_at
+        timestamp closed_at "NULL"
+    }
+    stellar_account_moderation_reports {
+        uuid report_id "PK,FK(account_reports)"
+        uuid moderation_id "PK,FK(stellar_account_moderation)"
+    }
+    stellar_account_moderation_events {
+        bigint version "PK"
+        uuid moderation_id "PK"
+        text event_name
+        json data
+        timestamp created_at
+    }
+    account_moderation {
         uuid id "PK"
         uuid target "FK(account_id)"
         uuid moderated_by "FK(stellar_id)"
@@ -136,9 +161,30 @@ erDiagram
         timestamp created_at
         timestamp closed_at "NULL"
     }
-    user_moderation_events {
+    account_moderation_reports {
+        uuid report_id "PK,FK(account_reports)"
+        uuid moderation_id "PK,FK(account_moderation)"
+    }
+    account_moderation_events {
         bigint version "PK"
         uuid moderation_id "PK"
+        text event_name
+        json data
+        timestamp created_at
+    }
+    account_reports {
+        uuid id "PK"
+        uuid target "FK(account_id)"
+        uuid reported_by "FK(stellar_id)"
+        text type
+        text comment
+        timestamp created_at
+        timestamp closed_at "NULL"
+        text close_reason "NULL"
+    }
+    account_report_events {
+        bigint version "PK"
+        uuid account_report_id "PK"
         text event_name
         json data
         timestamp created_at
@@ -162,9 +208,20 @@ erDiagram
     remote_accounts ||--|| images: "icon"
     stellar_hosts ||--o| host_moderation: "moderation"
     host_moderation ||--|{ host_moderation_events: "moderation history"
-    accounts ||--o| user_moderation: "moderation"
-    stellar_accounts ||--o| user_moderation: "moderation"
-    user_moderation ||--|{ user_moderation_events: "moderation history"
+    host_moderation ||--|{ host_moderation_reports: "linked reports"
+    host_moderation_reports ||--|| account_reports: "linked moderation"
+    host_moderation_reports ||--|| host_moderation_events: "link history"
+    accounts ||--o| account_moderation: "moderation"
+    stellar_accounts ||--o| stellar_account_moderation: "moderation"
+    stellar_account_moderation ||--|{ stellar_account_moderation_events: "moderation history"
+    stellar_account_moderation ||--|{ stellar_account_moderation_reports: "linked reports"
+    stellar_account_moderation_reports ||--|| account_reports: "linked moderation"
+    stellar_account_moderation_reports ||--|| stellar_account_moderation_events: "link history"
+    account_moderation ||--|{ account_moderation_events: "moderation history"
+    account_moderation ||--|{ account_moderation_reports: "linked reports"
+    account_moderation_reports ||--|| account_reports: "linked moderation"
+    account_moderation_reports ||--|| account_moderation_events: "link history"
+    account_reports ||--|{ account_report_events: "report history"
 ```
 
 ## Events
@@ -264,16 +321,43 @@ erDiagram
   - comment?: `text`
 - host_moderation_closed
 
-### UserModeration
+### StellarAccountModeration
 
-- user_moderation_created
+- stellar_account_moderation_created
   - target: `uuid`
   - moderated_by: `uuid`
   - type: `text`
   - comment: `text`
-- user_moderation_updated
+- stellar_account_moderation_updated
   - target?: `uuid`
   - moderated_by?: `uuid`
   - type?: `text`
   - comment?: `text`
-- user_moderation_closed
+- stellar_account_moderation_closed
+
+### AccountModeration
+
+- account_moderation_created
+  - target: `uuid`
+  - moderated_by: `uuid`
+  - type: `text`
+  - comment: `text`
+- account_moderation_updated
+  - target?: `uuid`
+  - moderated_by?: `uuid`
+  - type?: `text`
+  - comment?: `text`
+- account_moderation_closed
+
+### AccountReport
+
+- account_report_created
+  - target: `uuid`
+  - reported_by: `uuid`
+  - type: `text`
+  - comment: `text`
+- account_report_updated
+  - type?: `text`
+  - comment?: `text`
+- account_report_closed
+  - close_reason: `text`
