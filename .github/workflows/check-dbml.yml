@@ -1,0 +1,28 @@
+name: Check dbml
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - packages/document/dbml
+  pull_request:
+    branches: [main]
+    paths:
+      - packages/document/dbml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Install dbml-renderer
+        run: sudo npm install -g dbml-renderer
+
+      - name: Generate svgs
+        run: ./scripts/dbml2svg.sh
+        working-directory: packages/document
+
+      - name: Check diff
+        run: git diff --exit-code --relative ./packages/document/dbml

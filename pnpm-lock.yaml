@@ -68,6 +68,9 @@ importers:
       '@docusaurus/types':
         specifier: 3.0.0
         version: 3.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@softwaretechnik/dbml-renderer':
+        specifier: ^1.0.30
+        version: 1.0.30
       '@types/d3':
         specifier: ^7.4.3
         version: 7.4.3
@@ -79,6 +82,10 @@ importers:
         version: 5.2.2
 
 packages:
+
+  /@aduh95/viz.js@3.4.0:
+    resolution: {integrity: sha512-KI2nVf9JdwWCXqK6RVf+9/096G7VWN4Z84mnynlyZKao2xQENW8WNEjLmvdlxS5X8PNWXFC1zqwm7tveOXw/4A==}
+    dev: true
 
   /@algolia/autocomplete-core@1.9.3(@algolia/client-search@4.20.0)(algoliasearch@4.20.0)(search-insights@2.9.0):
     resolution: {integrity: sha512-009HdfugtGCdC4JdXUbVJClA0q0zh24yyePn+KUGk3rP7j8FEe/m5Yo/z65gn6nP/cM39PxpzqKrL7A6fP6PPw==}
@@ -2638,6 +2645,15 @@ packages:
       p-map: 4.0.0
       webpack-sources: 3.2.3
     dev: false
+
+  /@softwaretechnik/dbml-renderer@1.0.30:
+    resolution: {integrity: sha512-cGSeiZg5/IsW76mfKXAV39hveGnOOosLJLyIbFi/EcbUz/wqBlnPYnAgF/0d5lW+4AtzoBSMA8SNHkDMxCu/5Q==}
+    hasBin: true
+    dependencies:
+      '@aduh95/viz.js': 3.4.0
+      yargs: 17.7.2
+      zod: 3.23.8
+    dev: true
 
   /@svgr/babel-plugin-add-jsx-attribute@6.5.1(@babel/core@7.23.2):
     resolution: {integrity: sha512-9PYGcXrAxitycIjRmZB+Q0JaN07GZIWaTBIGQzfaZv+qr1n8X1XUEJ5rZ/vx6OVD9RRYlrNnXWExQXcmZeD/BQ==}
@@ -10759,6 +10775,10 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: false
+
+  /zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+    dev: true
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}

@@ -1,0 +1,86 @@
+Table stallar_accounts {
+  id UUID [not null]
+  host TEXT [not null]
+  access_token TEXT [not null]
+  refresh_token TEXT [not null]
+  Indexes {
+    (id, host) [pk]
+  }
+}
+
+Table accounts {
+  id UUID [not null]
+  stellar_id UUID [not null, ref: > stallar_accounts.id]
+  name TEXT [not null]
+  Indexes {
+    (id, stellar_id) [pk]
+  }
+}
+
+Table notes {
+  id UUID [pk]
+  account_id UUID [ref: > accounts.id]
+  content TEXT [not null]
+  posted_at TIMESTAMP [not null]
+  content_warning TEXT
+}
+
+Table medias {
+  id UUID [pk]
+  note_id UUID [not null, ref: > notes.id]
+  content_url TEXT [not null]
+  name TEXT [not null]
+  description TEXT
+  is_nsfw BOOLEAN [not null]
+  lisence_id UUID [not null]
+}
+
+Table replies {
+  id UUID [pk]
+  origin_local UUID [unique, ref: > notes.id]
+  origin_remote TEXT [unique]
+  target_local UUID [ref: > notes.id]
+  target_remote TEXT [unique]
+}
+
+Table note_quotes {
+  id UUID [pk]
+  origin_local UUID [ref: > notes.id]
+  origin_remote TEXT
+  
+  target_local UUID [ref: > notes.id]
+  target_remote TEXT [unique]
+}
+
+Table renotes {
+  id UUID [pk]
+  origin_local UUID [ref: > notes.id]
+  origin_remote TEXT
+  
+  target_local UUID [ref: > notes.id]
+  target_remote TEXT [unique]
+}
+
+Table reactions {
+  id UUID [pk]
+  account_local UUID [ref: > accounts.id]
+  account_remote TEXT
+  note_local UUID [ref: > notes.id]
+  note_remote TEXT
+  created_at TIMESTAMP [not null]
+  emoji_id UUID
+}
+
+Table mentions {
+  id UUID [pk]
+  note_local UUID [ref: > notes.id]
+  note_remote TEXT
+  account_local UUID [ref: > accounts.id]
+  account_remote TEXT
+}
+
+Table hash_tags {
+  id UUID [pk]
+  note_local UUID [ref: > notes.id]
+  note_remote TEXT
+}
