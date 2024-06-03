@@ -17,10 +17,7 @@ jobs:
       - name: Install dbdocs
         run: sudo npm install -g dbdocs
 
-      - name: Check dbdocs
-        run: dbdocs
-
       - name: Build dbdocs
         env:
           DBDOCS_TOKEN: ${{ secrets.DBDOCS_TOKEN }}
-        run: dbdocs build packages/document/shuttlepub.dbml --project shuttlepub
+        run: dbdocs build packages/document/dbml/shuttlepub.dbml --project shuttlepub
