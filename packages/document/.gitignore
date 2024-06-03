@@ -5,3 +5,4 @@
 .docusaurus
 .cache-loader
 openapi*.yaml
+.vscode
