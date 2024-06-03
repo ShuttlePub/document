@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dbml-renderer
-        run: sudo npm install -g dbml-renderer
+        run: sudo npm install -g @softwaretechnik/dbml-renderer
 
       - name: Generate svgs
         run: ./scripts/dbml2svg.sh
