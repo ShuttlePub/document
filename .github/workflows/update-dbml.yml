@@ -1,0 +1,25 @@
+name: Update dbml
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - packages/document/dbml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Install dbdocs
+        run: sudo npm install -g dbdocs
+
+      - name: Check dbdocs
+        run: dbdocs
+
+      - name: Build dbdocs
+        env:
+          DBDOCS_TOKEN: ${{ secrets.DBDOCS_TOKEN }}
+        run: dbdocs build packages/document/shuttlepub.dbml --project shuttlepub
