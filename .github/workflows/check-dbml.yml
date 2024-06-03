@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - packages/document/dbml
+      - .github/workflows/check-dbml.yml
   pull_request:
     branches: [main]
     paths:
       - packages/document/dbml
+      - .github/workflows/check-dbml.yml
 
 jobs:
   build:

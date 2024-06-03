@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - packages/document/dbml
+      - .github/workflows/update-dbml.yml
 
 jobs:
   build:
