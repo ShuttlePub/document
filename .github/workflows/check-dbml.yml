@@ -27,4 +27,4 @@ jobs:
         working-directory: packages/document
 
       - name: Check diff
-        run: git diff --exit-code --relative ./packages/document/dbml
+        run: git diff --exit-code --relative ./packages/document/static/dbml
