@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - packages/document/dbml
+      - packages/document/dbml/*
       - .github/workflows/update-dbml.yml
 
 jobs:
