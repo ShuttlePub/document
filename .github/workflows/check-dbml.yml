@@ -4,16 +4,16 @@ on:
   push:
     branches: [main]
     paths:
-      - packages/document/dbml
+      - packages/document/dbml/*
       - .github/workflows/check-dbml.yml
   pull_request:
     branches: [main]
     paths:
-      - packages/document/dbml
+      - packages/document/dbml/*
       - .github/workflows/check-dbml.yml
 
 jobs:
-  build:
+  check-dbml:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -27,4 +27,4 @@ jobs:
         working-directory: packages/document
 
       - name: Check diff
-        run: git diff --exit-code --relative ./packages/document/dbml
+        run: git diff --exit-code --relative ./packages/document/static/dbml

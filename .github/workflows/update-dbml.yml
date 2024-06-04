@@ -4,11 +4,11 @@ on:
   push:
     branches: [main]
     paths:
-      - packages/document/dbml
+      - packages/document/dbml/*
       - .github/workflows/update-dbml.yml
 
 jobs:
-  build:
+  build-dbdocs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -20,4 +20,6 @@ jobs:
       - name: Build dbdocs
         env:
           DBDOCS_TOKEN: ${{ secrets.DBDOCS_TOKEN }}
-        run: dbdocs build packages/document/dbml/shuttlepub.dbml --project shuttlepub
+        run: |
+          dbdocs build packages/document/dbml/shuttlepub.dbml --project shuttlepub
+          dbdocs build packages/document/dbml/emumet.dbml --project emumet
