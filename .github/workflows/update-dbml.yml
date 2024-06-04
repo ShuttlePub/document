@@ -8,7 +8,7 @@ on:
       - .github/workflows/update-dbml.yml
 
 jobs:
-  build:
+  build-dbdocs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
