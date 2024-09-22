@@ -26,7 +26,8 @@ Table remote_accounts {
 }
 
 Table profiles {
-    account_id UUID [not null, pk, ref: - accounts.id]
+    id UUID [not null, pk]
+    account_id UUID [not null, ref: - accounts.id]
     display TEXT
     summary TEXT
     icon_id UUID [ref: - images.id]
