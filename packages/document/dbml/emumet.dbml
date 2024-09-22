@@ -5,7 +5,7 @@ Table event_streams {
     data JSON [not null]
     created_at TIMESTAMP [not null]
     Indexes {
-        (account_id, version) [pk]
+        (id, version) [pk]
     }
 }
 Table accounts {
