@@ -3,7 +3,7 @@ Table event_streams {
     id UUID [not null]
     event_name TEXT [not null]
     data JSON [not null]
-    created_at TIMESTAMP [not null]
+    created_at TIMESTAMPZ [not null]
     Indexes {
         (id, version) [pk]
     }
@@ -14,8 +14,8 @@ Table accounts {
     private_key TEXT [not null]
     public_key TEXT [not null]
     is_bot BOOLEAN [not null]
-    created_at TIMESTAMP [not null]
-    deleted_at TIMESTAMP
+    created_at TIMESTAMPZ [not null]
+    deleted_at TIMESTAMPZ
 }
 
 Table remote_accounts {
@@ -39,7 +39,7 @@ Table metadatas {
     account_id UUID [not null, ref: > accounts.id]
     label TEXT [not null]
     content TEXT [not null]
-    created_at TIMESTAMP [not null]
+    created_at TIMESTAMPZ [not null]
 }
 
 Table stellar_hosts {
@@ -69,7 +69,7 @@ Table follows {
     follower_remote_id UUID [ref: > remote_accounts.id]
     followee_local_id UUID [ref: > accounts.id]
     followee_remote_id UUID [ref: > remote_accounts.id]
-    approved_at TIMESTAMP
+    approved_at TIMESTAMPZ
 }
 
 Table images {
@@ -96,8 +96,8 @@ Table images {
 //     reported_id UUID [not null, ref: > stellar_accounts.id]
 //     type TEXT [not null]
 //     comment TEXT [not null]
-//     created_at TIMESTAMP [not null]
-//     closed_at TIMESTAMP
+//     created_at TIMESTAMPZ [not null]
+//     closed_at TIMESTAMPZ
 //     close_reason TEXT
 // }
 // 
@@ -107,8 +107,8 @@ Table images {
 //     moderator_id UUID [not null, ref: > stellar_accounts.id]
 //     type TEXT [not null]
 //     comment TEXT [not null]
-//     created_at TIMESTAMP [not null]
-//     closed_at TIMESTAMP
+//     created_at TIMESTAMPZ [not null]
+//     closed_at TIMESTAMPZ
 // }
 // Table account_moderation_reports {
 //     moderation_id UUID [not null, ref: > account_moderations.id]
@@ -124,8 +124,8 @@ Table images {
 //     moderator_id UUID [not null, ref: > stellar_accounts.id]
 //     type TEXT [not null]
 //     comment TEXT [not null]
-//     created_at TIMESTAMP [not null]
-//     closed_at TIMESTAMP
+//     created_at TIMESTAMPZ [not null]
+//     closed_at TIMESTAMPZ
 // }
 // Table stellar_account_moderation_reports {
 //     moderation_id UUID [not null, ref: > stellar_account_moderations.id]
@@ -141,8 +141,8 @@ Table images {
 //     moderator_id UUID [not null, ref: > stellar_accounts.id]
 //     type TEXT [not null]
 //     comment TEXT [not null]
-//     created_at TIMESTAMP [not null]
-//     closed_at TIMESTAMP
+//     created_at TIMESTAMPZ [not null]
+//     closed_at TIMESTAMPZ
 // }
 // Table host_moderation_reports {
 //     moderation_id UUID [not null, ref: > host_moderations.id]
