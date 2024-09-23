@@ -36,7 +36,7 @@ Table profiles {
     banner_id UUID 
 }
 
-Ref: profiles.account_id - accounts.id [delete: cascade]
+Ref: accounts.id - profiles.account_id [delete: cascade]
 Ref: profiles.icon_id > images.id [delete: set null]
 Ref: profiles.banner_id > images.id [delete: set null]
 
