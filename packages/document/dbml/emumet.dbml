@@ -22,7 +22,7 @@ Table remote_accounts {
     id UUID [not null, pk]
     acct TEXT [not null, unique]
     url TEXT [not null, unique]
-    icon_id UUID [not null, ref: - images.id]
+    icon_id UUID [ref: - images.id]
 }
 
 Table profiles {
