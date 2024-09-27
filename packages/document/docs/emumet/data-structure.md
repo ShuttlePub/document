@@ -22,23 +22,24 @@
 - profile_created
   - display_name: `text`
   - summary: `text`
-  - icon_id: `text`
-  - banner_id: `text`
+  - icon: `uuid`
+  - banner: `uuid`
 - profile_updated
   - display_name?: `text`
   - summary?: `text`
-  - icon_id?: `text`
-  - banner_id?: `text`
+  - icon?: `uuid`
+  - banner?: `uuid`
 - profile_deleted
 
 ### Metadata
 
 - metadata_created
+  - account_id: `uuid`
   - label: `text`
   - content: `text`
 - metadata_updated
-  - label?: `text`
-  - content?: `text`
+  - label: `text`
+  - content: `text`
 - metadata_deleted
 
 ### StellarAccount
@@ -49,29 +50,24 @@
   - access_token: `text`
   - refresh_token: `text`
 - stellar_account_updated
-  - host?: `text`
-  - client_id?: `text`
-  - access_token?: `text`
-  - refresh_token?: `text`
+  - access_token: `text`
+  - refresh_token: `text`
 - stellar_account_deleted
 
 ### Follow
 
 - follow_requested
-  - source_local?: `uuid`
-  - source_remote?: `uuid`
-  - destination_local?: `uuid`
-  - destination_remote?: `uuid`
-- follow_accepted
-  - source_local?: `uuid`
-  - source_remote?: `uuid`
-  - destination_local?: `uuid`
-  - destination_remote?: `uuid`
-- follow_rejected
-  - source_local?: `uuid`
-  - source_remote?: `uuid`
-  - destination_local?: `uuid`
-  - destination_remote?: `uuid`
+  - source:
+    - type: `text`
+    - id: `uuid`
+  - destination:
+    - type: `text`
+    - id: `uuid`
+- follow_approved
+- follow_deleted
+
+---
+> Below events are not implemented yet.
 
 ### Moderator
 
