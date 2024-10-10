@@ -29,7 +29,6 @@
   - summary?: `text`
   - icon?: `uuid`
   - banner?: `uuid`
-- profile_deleted
 
 ### Metadata
 
