@@ -47,3 +47,46 @@ sequenceDiagram
     P->>P: 検証
     P-->>A: TLに掲載
 ```
+
+### 他サービスでのEmumetデータ利用(新規)
+
+> クライアント認証方式は`private_key_jwt`のみを想定
+
+->> Request  
+-->> Response  
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant A as AnyService
+    participant E as Emumet
+    box Stellar System
+        participant S as Server
+        participant SC as EventHandler
+        participant SE as EventHandler
+        participant SD as DB
+    end
+    U->>A: Stellarでログイン
+    A->>+S: Emumetの利用リクエスト
+        S->>SC: 利用リクエスト通知
+        SC->>SE: Event発行
+        SE->>SD: 利用リクエストログ保存
+    S-->>-A: リダイレクトURLの返却
+    A->>U: リダイレクト
+    U->>S: 承認
+        S->>SC: 承認通知
+        SC->>SE: Event発行
+        SE->>SD: サービス許可ログ保存
+        SE->>S: 承認通知処理
+    S->>A: 承認通知(認可トークンの発行)
+    A->>+S: トークンリクエスト
+        S->>A: 公開鍵リクエスト
+        A-->>S: 公開鍵返却
+        S->>S: 検証
+    S-->>-A: トークン返却
+    A->>+E: データ取得リクエスト
+    E->>+S: トークン検証リクエスト
+    S->>S: 検証
+    S-->>-E: 結果返却
+    E-->>-A: データ返却
+    A->>U: ログイン完了
+```
