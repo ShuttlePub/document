@@ -61,7 +61,7 @@ sequenceDiagram
     participant E as Emumet
     box Stellar System
         participant S as Server
-        participant SC as EventHandler
+        participant SC as CommandHandler
         participant SE as EventHandler
         participant SD as DB
     end
