@@ -51,6 +51,8 @@ sequenceDiagram
 ### 他サービスでのEmumetデータ利用(新規)
 
 > クライアント認証方式は`private_key_jwt`のみを想定
+>
+> 分散したEmumet/Stellarへの対応についてはコメントアウトしたコードを参照
 
 ->> Request  
 -->> Response  
@@ -66,7 +68,7 @@ sequenceDiagram
         participant SD as DB
     end
     U->>A: Stellarでログイン
-    note over U,A: StellarIdからStellarドメインを導出
+%%    note over U,A: StellarIdからStellarドメインを導出
     A->>+S: Emumetの利用リクエスト
         S->>SC: 利用リクエスト通知
         SC->>SE: Event発行
@@ -84,9 +86,9 @@ sequenceDiagram
         A-->>S: 公開鍵返却
         S->>S: 検証
     S-->>-A: トークン返却
-    note over S,A: ここでStellarアカウントに紐付いた<br/>Emumetアカウントのあるドメインも通知する
-    A->>U: Emumetドメイン一覧表示
-    U->>A: Emumetドメイン選択
+%%    note over S,A: ここでStellarアカウントに紐付いた<br/>Emumetアカウントのあるドメインも通知する
+%%    A->>U: Emumetドメイン一覧表示
+%%    U->>A: Emumetドメイン選択
     A->>+E: データ取得リクエスト
     alt 識別子型
     E->>+S: トークン検証リクエスト
