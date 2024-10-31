@@ -12,8 +12,7 @@ using Common;
 @route("/metadata/{id}")
 namespace Emumet.API.MetadataAPI;
 
-@format("uuid")
-scalar MetadataId extends string;
+scalar MetadataId extends Common.Types.Nanoid;
 
 model MetadataCreateRequest {
   name: string;

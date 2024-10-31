@@ -8,7 +8,7 @@ namespace Query;
 model ArrayLimitQueries<
   Max extends valueof numeric = 100,
   DefaultLimit extends valueof numeric = 30,
-  Cursor = Common.ULID
+  Cursor = Common.Types.Nanoid
 > {
   @maxValue(Max)
   @minValue(1)
